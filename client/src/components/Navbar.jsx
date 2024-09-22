@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 // react icons 
 
-import { FaBarcode, FaBarsStaggered, FaBlog, FaXmark } from "react-icons/fa6";
+import { FaBarcode, FaBarsStaggered, FaLeaf, FaXmark } from "react-icons/fa6";
 
 const Navbar = () => {
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -45,7 +45,7 @@ const Navbar = () => {
         <nav className={`py-4 lg:px-24 ${isSticky ? "sticky top-0 left-0 right-0 bg-blue-300 ":""}`}>
             <div className='flex justify-between items-center text-base gap-8'>
                 {/*logo */}
-                <Link to="/" className='text-zxl font-bold text-green-700 flex items-center gap-2'><FaBlog className='inline-block'/>Bokhuset</Link>
+                <Link to="/" className='text-zxl font-bold text-green-700 flex items-center gap-2'><FaLeaf className='inline-block'/>Bokhuset</Link>
 
                 {/* nav item for large device */}
 
@@ -55,7 +55,7 @@ const Navbar = () => {
                     }
                 </ul>
                 {/* btn for lg devices */}
-               <div className='space-x-12 hidden lg:flex item-center'>
+               <div className='space-x-12 hidden lg:flexitem-center'>
                <button><FaBarsStaggered className='w-5 hover:to-blue-700'/></button>
                </div>
 
