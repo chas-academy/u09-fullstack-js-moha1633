@@ -1,89 +1,92 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
-// react icons 
-
-import { FaBarcode, FaBarsStaggered, FaLeaf, FaXmark } from "react-icons/fa6";
+import { FaBarsStaggered, FaXmark } from "react-icons/fa6"; // Behåll FaBarsStaggered och FaXmark från fa6
+import { FaHome } from "react-icons/fa"; // Byt ut husikonen till FaHome från fa
 
 const Navbar = () => {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [isMenuOpen, setMenuOpen] = useState(false);
     const [isSticky, setSticky] = useState(false);
-    // toggle menu
+
+    // Toggle menu
     const toggleMenu = () => {
-      setIsMenuOpen(!isMenuOpen);
+        setMenuOpen(!isMenuOpen);
     }
+
     useEffect(() => {
-      const handleScroll = () => {
-        if(window.scrollY > 100){
-          setIsSticky(true);
-  
+        const handleScroll = () => {
+            if (window.scrollY > 100) {
+                setSticky(true);
+            } else {
+                setSticky(false);
+            }
         }
-        else {
-          setSticky(false);
+
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
         }
-      }
-  
-      window.addEventListener("scroll", handleScroll);
-  
-      return () => {
-        window.removeEventListener("scroll", handleScroll);
-      }
-      
-    },[])
-  
-    // nav items
+    }, []);
+
+    // navItems här 
     const navItems = [
         { link: "Home", path: "/" },
-        { link: "About", path: "/about" }, // Unique path
-        { link: "Shop", path: "/shop" },   // Unique path
+        { link: "About", path: "/about" },
+        { link: "Shop", path: "/shop" }, // Ändrad väg
         { link: "Sell Your Book", path: "/admin/dashboard" },
-        { link: "Blog", path: "/blog" }    // Unique path
+        { link: "Blog", path: "/blog" },
     ];
     
 
-  return (
-    <header className='w-full bg-transparent fixed top-0 left-0  right-0 transition-all ease-in duration-300'>
-        <nav className={`py-4 lg:px-24 ${isSticky ? "sticky top-0 left-0 right-0 bg-blue-300 ":""}`}>
-            <div className='flex justify-between items-center text-base gap-8'>
-                {/*logo */}
-                <Link to="/" className='text-zxl font-bold text-green-700 flex items-center gap-2'><FaLeaf className='inline-block'/>Bokhuset</Link>
-
-                {/* nav item for large device */}
-
-                <ul className='md:flex space-x-12 hidden'>
-                    {
-                        navItems.map(({link, path}) => <Link key ={path} to={path} className='block text-base text-black uppercase cursor-pointer hover:text-blue-700'>{link}</Link>)
-                    }
-                </ul>
-                {/* btn for lg devices */}
-               <div className='space-x-12 hidden lg:flexitem-center'>
-               <button><FaBarsStaggered className='w-5 hover:to-blue-700'/></button>
-               </div>
-
-               {/* menu btn for the mobile devices */}
+    return (
+        <header className={`${isSticky ? 'sticky top-0 bg-white shadow-md' : ''}`}>
+            <nav className='container mx-auto flex items-center justify-between py-4 px-4'>
+                
+                {/** Hamburgermeny-knappen för mobil på vänster sida */}
                 <div className='md:hidden'>
                     <button onClick={toggleMenu} className='text-black focus:outline-none'>
-                        {
-                            isMenuOpen ? <FaXmark className='h-5 w-5 text-black'/> : <FaBarsStaggered className='h-5 w-5 text-black'/>
-                        }
+                        {isMenuOpen ? <FaXmark className='h-5 w-5' /> : <FaBarsStaggered className='h-5 w-5' />}
                     </button>
                 </div>
 
-            </div>
-           {/* Nav items for small devices */}
-           <div className={`space-y-4 px-4 mt-16 py-7 bg-blue-700 ${isMenuOpen ? 'block fixed top-0 right-0 left-0' : 'hidden'}`}>
-                    {
-                        navItems.map(({ link, path }) => (
-                            <Link key={path} to={path} className='block text-base text-white uppercase cursor-pointer hover:text-blue-300'>
-                                {link}
-                            </Link>
-                        ))
-                    }
+                {/** Logo */}
+                <div className='flex items-center'>
+                    <Link to="/" className='text-2xl font-bold text-green-700 flex items-center gap-2'>
+                        <FaHome className='inline-block' /> {/* Husikonen */}
+                        Books
+                    </Link>
                 </div>
-        </nav>
 
-    </header>
-  
-  )
+                {/** Nav-objekt för större enheter */}
+                <ul className='md:flex space-x-12 hidden'>
+    {navItems.map(({ link, path }, index) => (
+        <li key={`${path}-${index}`}> {/* Lägg till index för att göra nyckeln unik */}
+            <Link to={path} className='block text-base text-black uppercase cursor-pointer hover:text-blue-700'>
+                {link}
+            </Link>
+        </li>
+    ))}
+</ul>
+
+
+                {/** Meny-knapp för stora enheter */}
+                <div className='space-x-12 hidden lg:flex items-center'>
+                    <button><FaBarsStaggered className='w-5 hover:text-blue-700' /></button>
+                </div>
+            </nav>
+
+            {/** Nav-objekt för små enheter */}
+            {isMenuOpen && (
+                <div className='md:hidden space-y-4 px-4 mt-4 py-4 bg-blue-700'>
+                    {navItems.map(({ link, path }) => (
+                        <Link key={path} to={path} className='block text-base text-white uppercase cursor-pointer hover:text-blue-300'>
+                            {link}
+                        </Link>
+                    ))}
+                </div>
+            )}
+        </header>
+    )
 }
 
-export default Navbar
+export default Navbar;

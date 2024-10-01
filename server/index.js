@@ -2,13 +2,12 @@ require('dotenv').config();  // Load environment variables
 
 const express = require('express');
 const cors = require('cors');
-const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');  // Import MongoClient
+const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const app = express();
 const port = process.env.PORT || 4000;
 const uri = process.env.MONGODB_URI;  // Get MongoDB URI from .env
 
-// Middleware
 app.use(cors());
 app.use(express.json());
 
@@ -27,15 +26,26 @@ const client = new MongoClient(uri, {
 
 async function run() {
     try {
-        // Connect the client to the server
         await client.connect();
 
         const bookCollections = client.db("BookInventory").collection("books");
 
         // Insert a book into the DB: POST method
         app.post("/upload-book", async (req, res) => {
-            const data = req.body;
-            const result = await bookCollections.insertOne(data);
+            const { booktitle, imageUrl, category } = req.body;
+
+            // Ensure the book has all necessary data before inserting
+            if (!booktitle || !imageUrl) {
+                return res.status(400).send({ message: "Book title and image URL are required" });
+            }
+
+            const bookData = {
+                booktitle,
+                imageUrl,
+                category: category || "Uncategorized", // Default category
+            };
+
+            const result = await bookCollections.insertOne(bookData);
             res.send(result);
         });
 
@@ -66,6 +76,31 @@ async function run() {
             res.send(result);
         });
 
+        // Update Image URL: PATCH method
+        app.patch("/update-image-url/:id", async (req, res) => {
+            const id = req.params.id; 
+            const { newImageUrl } = req.body; 
+
+            try {
+                const filter = { _id: new ObjectId(id) }; 
+                const updateDoc = {
+                    $set: {
+                        imageUrl: newImageUrl 
+                    }
+                };
+
+                const result = await bookCollections.updateOne(filter, updateDoc); 
+                if (result.matchedCount > 0) {
+                    res.send({ message: "Image URL updated successfully", result });
+                } else {
+                    res.status(404).send({ message: "Book not found" });
+                }
+            } catch (error) {
+                console.error("Error updating image URL:", error);
+                res.status(500).send("Error updating image URL");
+            }
+        });
+
         // Delete a book: DELETE method
         app.delete("/book/:id", async (req, res) => {
             const id = req.params.id;
@@ -81,7 +116,6 @@ async function run() {
         console.error(error);
     }
 }
-
 run().catch(console.dir);
 
 app.listen(port, () => {
