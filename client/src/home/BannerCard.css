@@ -1,10 +1,10 @@
 
-.swiper {
+.banner .swiper {
     width: 240px;
     height: 320px;
   }
   
-  .swiper-slide {
+  .banner .swiper-slide {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -53,4 +53,4 @@
   .banner .swiper-slide:nth-child(10n) {
     background-color: rgb(54, 94, 77);
   }
-  
+ 

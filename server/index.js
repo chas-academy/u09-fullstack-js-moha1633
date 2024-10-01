@@ -49,6 +49,33 @@ async function run() {
             res.send(result);
         });
 
+        // Insert multiple books into the DB: POST method
+        app.post("/upload-books", async (req, res) => {
+            const books = req.body; // Expecting an array of book objects
+
+            // Validate the array
+            if (!Array.isArray(books) || books.length === 0) {
+                return res.status(400).send({ message: "Please provide an array of books" });
+            }
+
+            // Check each book for required fields
+            for (const book of books) {
+                const { booktitle, authorName, imageUrl, bookdescription, publishedYear, category, bookpdfUrl } = book;
+
+                if (!booktitle || !authorName || !imageUrl || !bookdescription || !publishedYear || !bookpdfUrl) {
+                    return res.status(400).send({ message: "All fields are required for each book" });
+                }
+            }
+
+            try {
+                const result = await bookCollections.insertMany(books); // Insert multiple books at once
+                res.send(result);
+            } catch (error) {
+                console.error("Error inserting books:", error);
+                res.status(500).send("Error inserting books");
+            }
+        });
+
         // Get all books from the database
         app.get("/all-books", async (req, res) => {
             let query = {};

@@ -19,7 +19,7 @@ export const BannerCard = () => {
         modules={[EffectCards]}
         className="mySwiper"
       >
-        <SwiperSlide></SwiperSlide>
+        <SwiperSlide>slide</SwiperSlide>
         <SwiperSlide></SwiperSlide>
         <SwiperSlide></SwiperSlide>
         <SwiperSlide></SwiperSlide>
