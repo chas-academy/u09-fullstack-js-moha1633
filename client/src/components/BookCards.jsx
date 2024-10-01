@@ -5,6 +5,7 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
 import { Link } from 'react-router-dom';
+import { FaCartShopping } from 'react-icons/fa6'
 
 const BookCards = ({ headline, books }) => {
   return (
@@ -35,11 +36,12 @@ const BookCards = ({ headline, books }) => {
         {books.map((book) => (
           <SwiperSlide key={book._id}>
             <Link to={`/book/${book._id}`} className="block p-4">
-              <div className="book-card">
+              <div className="relative">
                 <img
-                  src={book.imageUrl}
-                
-                />
+                  src={book.imageUrl}/>
+                  <div className=' absolute top-3 righ-3 bg-blue-600 hover:bg-black p-2 rounded'>
+                    <FaCartShopping className='w-4-h-4 text-white'/>
+                  </div>
               </div>
               <div className="text-center mt-4">
                 <h3>{book.booktitle}</h3>
