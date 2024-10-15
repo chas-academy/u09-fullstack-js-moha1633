@@ -10,6 +10,42 @@ import 'swiper/css/pagination';
 // Import required Swiper modules
 import { Pagination } from 'swiper/modules';
 
+// Dummy review data
+const reviews = [
+  {
+    id: 1,
+    name: 'Mark Ping',
+    title: 'CEO, Skogblad AB',
+    text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis sit sed obcaecati placeat dicta similique fugit.',
+    rating: 4,
+    img: propic
+  },
+  {
+    id: 2,
+    name: 'Alice Johnson',
+    title: 'Product Manager, Example Inc.',
+    text: 'Fantastic product! I have seen great results and it has really improved my workflow. Highly recommended!',
+    rating: 5,
+    img: propic
+  },
+  {
+    id: 3,
+    name: 'John Smith',
+    title: 'Designer, Creative Co.',
+    text: 'The quality is exceptional and the support team is incredibly helpful. Would definitely buy again !',
+    rating: 4,
+    img: propic
+  },
+  {
+    id: 4,
+    name: 'Jane Doe',
+    title: 'Marketing Lead, Business Corp.',
+    text: 'Great experience from start to finish. The features are intuitive and easy to use.',
+    rating: 5,
+    img: propic
+  },
+];
+
 const Review = () => {
   return (
     <div className='my-12 px-4 lg:px-24'>
@@ -38,43 +74,30 @@ const Review = () => {
           modules={[Pagination]}
           className="mySwiper"
         >
-          <SwiperSlide>
-            <div className="space-y-6">
-              <div className='text-amber-500 flex gap-1 mb-3'>
-                <FaStar />
-                <FaStar />
-                <FaStar />
-                <FaStar />
+          {reviews.map((review) => (
+            <SwiperSlide key={review.id} className='shadow-lg bg-white py-6 px-4 md:m-4 rounded-lg border transition-transform transform hover:scale-105'>
+              <div className="space-y-4">
+                <div className='text-amber-500 flex gap-1 mb-2'>
+                  {Array.from({ length: review.rating }, (_, i) => (
+                    <FaStar key={i} />
+                  ))}
+                </div>
+                <p className='mb-4 text-gray-700'>{review.text}</p>
+                <div className='flex items-center'>
+                  <Avatar 
+                    alt={`Avatar of ${review.name}`}
+                    img={review.img}
+                    rounded={true}
+                    className='w-12 h-12 mr-3'
+                  />
+                  <div>
+                    <h5 className='text-lg font-medium text-gray-900'>{review.name}</h5>
+                    <p className='text-base text-gray-500'>{review.title}</p>
+                  </div>
+                </div>
               </div>
-              {/** Review Text */}
-              <div className='mt-7'>
-                <p className='mb-5'>
-                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis sit sed obcaecati placeat dicta similique fugit.
-                  Modi dolor ab blanditiis fugit perspiciatis aut quae ex, accusantium deserunt,
-                  eius voluptas sit!
-                </p>
-                {/** Avatar with Profile Picture */}
-                <Avatar 
-                  alt="Avatar of Jese"
-                  img={propic}  // Image source for the profile picture
-                  rounded={true}  // Makes the avatar image circular
-                  className='w-10 mb-4'  // Set the size of the avatar (smaller size)
-                />
-              <h5 className='text-lg font-medium '>Mark ping</h5>
-              <p className='text-base'>CEO,Skogblad AB</p>
-              </div>
-            </div>
-          </SwiperSlide>
-
-          {/* Additional Slides */}
-          <SwiperSlide>Slide 2</SwiperSlide>
-          <SwiperSlide>Slide 3</SwiperSlide>
-          <SwiperSlide>Slide 4</SwiperSlide>
-          <SwiperSlide>Slide 5</SwiperSlide>
-          <SwiperSlide>Slide 6</SwiperSlide>
-          <SwiperSlide>Slide 7</SwiperSlide>
-          <SwiperSlide>Slide 8</SwiperSlide>
-          <SwiperSlide>Slide 9</SwiperSlide>
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
     </div>
