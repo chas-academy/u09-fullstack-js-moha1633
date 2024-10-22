@@ -1,47 +1,52 @@
 import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contects/AuthProvider';
+import googleLogo from "../assets/banner-books/googleLogo.png"; // Ensure path is correct
 
 const Signup = () => {
-    // Hämta createUser-funktionen från AuthContext
-    const { createUser } = useContext(AuthContext); 
-    
-    // Hantera felmeddelanden och laddningsstatus
+    const { createUser, loginWithGoogle } = useContext(AuthContext); // Corrected function name
     const [error, setError] = useState(null); 
     const [loading, setLoading] = useState(false); 
-    
-    const location = useLocation(); // Används för att ta reda på vart användaren ska omdirigeras efter inloggning
-    const navigate = useNavigate(); // Används för att navigera till olika sidor
-    
-    // Bestäm var användaren ska omdirigeras efter att ha loggat in
+    const location = useLocation();
+    const navigate = useNavigate(); 
     const from = location.state?.from?.pathname || "/"; 
 
-    // Funktion som hanterar när användaren skickar in formuläret
     const handleSignup = async (event) => {
-        event.preventDefault(); // Förhindra att sidan laddas om
+        event.preventDefault(); 
         const form = event.target;
-        const email = form.email.value; // Hämta e-post från formuläret
-        const password = form.password.value; // Hämta lösenord från formuläret
+        const email = form.email.value; 
+        const password = form.password.value; 
 
-        // Kontrollera att lösenordet är minst 6 tecken långt
         if (password.length < 6) {
-            setError("Sign up successfully!");
+            setError("Password must be at least 6 characters long.");
             return;
         }
 
-        setLoading(true); // Starta laddningsindikator
+        setLoading(true); 
 
         try {
-            // Anropa createUser för att registrera en ny användare
-            const userCredential = await createUser(email, password);
-            setLoading(false); // Stoppa laddningsindikatorn
-            alert("Sign up successfully!"); // Visa ett meddelande om framgång
-            navigate(from, { replace: true }); // Omdirigera användaren till rätt sida
+            await createUser(email, password);
+            setLoading(false); 
+            alert("Sign up successfully!"); 
+            navigate(from, { replace: true }); 
         } catch (error) {
-            setError(error.message); // Visa felmeddelande om något går fel
-            setLoading(false); // Stoppa laddningsindikatorn vid fel
+            setError(error.message); 
+            setLoading(false); 
         }
     };
+
+    const handleRegister = async () => {
+        setLoading(true); // Show loading state
+        try {
+            const result = await loginWithGoogle(); // Use corrected function name
+            const user = result.user;
+            alert("Sign up successfully!");
+            navigate(from, {replace: true});
+        } catch (error) {
+            setError(error.message); 
+            setLoading(false); 
+        }
+    }
 
     return (
         <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
@@ -52,12 +57,10 @@ const Signup = () => {
                         <div>
                             <h1 className="text-2xl font-semibold">Sign up</h1>
                         </div>
-                        {/* Om det finns ett felmeddelande, visa det */}
                         {error && <p className="text-red-500">{error}</p>}
                         <form onSubmit={handleSignup} className="divide-y divide-gray-200">
                             <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                                 <div className="relative">
-                                    {/* Fält för e-post */}
                                     <input
                                         id="email"
                                         name="email"
@@ -68,7 +71,6 @@ const Signup = () => {
                                     />
                                 </div>
                                 <div className="relative">
-                                    {/* Fält för lösenord */}
                                     <input
                                         id="password"
                                         name="password"
@@ -79,20 +81,30 @@ const Signup = () => {
                                     />
                                 </div>
                                 <p>
-                                If you have an account, please?{' '}
+                                    If you have an account, please{' '}
                                     <Link to="/login" className="text-green-600 underline">
                                         Log in
                                     </Link>{' '}
                                     här.
                                 </p>
                                 <div className="relative">
-                                    {/* Knapp för att skicka formuläret */}
                                     <button
                                         type="submit"
                                         className="bg-green-500 text-white rounded-md px-6 py-2"
-                                        disabled={loading} // Inaktivera knappen under laddning
+                                        disabled={loading}
                                     >
-                                        {loading ? 'Signing up...' : 'Signing up'}
+                                        {loading ? 'Signing up...' : 'Sign Up'}
+                                    </button>
+                                </div>
+
+                                <div className='flex w-full items-center flex-col mt-5 gap-3'>
+                                    <button 
+                                        type="button" 
+                                        onClick={handleRegister} 
+                                        className='flex items-center bg-white border border-gray-300 rounded-md px-4 py-2'
+                                    >
+                                        <img src={googleLogo} alt="Google Logo" className='w-8 h-8 inline-block mr-2' />
+                                        <span>Login with Google</span>
                                     </button>
                                 </div>
                             </div>

@@ -1,11 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { FaBarsStaggered, FaXmark } from "react-icons/fa6"; // Behåll FaBarsStaggered och FaXmark från fa6
 import { FaHome } from "react-icons/fa"; // Byt ut husikonen till FaHome från fa
+import { AuthContext } from '../contects/AuthProvider';
 
 const Navbar = () => {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [isSticky, setSticky] = useState(false);
+
+    const {user} = useContext(AuthContext);
+    console.log(user)
 
     // Toggle menu
     const toggleMenu = () => {
@@ -64,8 +68,13 @@ const Navbar = () => {
             <Link to={path} className='block text-base text-black uppercase cursor-pointer hover:text-blue-700'>
                 {link}
             </Link>
+           
         </li>
     ))}
+       {
+        user ? user.email : "" // Visa användarens riktiga e-postadress
+    }
+    
 </ul>
 
 
