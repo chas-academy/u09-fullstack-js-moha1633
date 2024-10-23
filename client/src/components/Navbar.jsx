@@ -1,4 +1,3 @@
-// src/components/Navbar.jsx
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { FaBarsStaggered, FaXmark } from "react-icons/fa6";
@@ -44,10 +43,8 @@ const Navbar = () => {
     // Handle navigation for Sell Your Book
     const handleSellYourBookClick = () => {
         if (user) {
-            // If user is logged in, navigate to the dashboard
             navigate('/admin/dashboard');
         } else {
-            // If not logged in, navigate to the login page
             navigate('/login');
         }
     };
@@ -55,7 +52,7 @@ const Navbar = () => {
     return (
         <header className={`${isSticky ? 'sticky top-0 bg-white shadow-md' : ''}`}>
             <nav className='container mx-auto flex items-center justify-between py-4 px-4'>
-                {/* Hamburger menu button for mobile on the left */}
+                {/* Hamburger menu button for mobile */}
                 <div className='md:hidden'>
                     <button onClick={toggleMenu} className='text-black focus:outline-none'>
                         {isMenuOpen ? <FaXmark className='h-5 w-5' /> : <FaBarsStaggered className='h-5 w-5' />}
@@ -75,17 +72,22 @@ const Navbar = () => {
                     {navItems.map(({ link, path }, index) => (
                         <li key={`${path}-${index}`}>
                             <Link
-                                to={link === "Sell Your Book" ? "#" : path} // Prevent default behavior for "Sell Your Book"
+                                to={link === "Sell Your Book" ? "#" : path}
                                 className='block text-base text-black uppercase cursor-pointer hover:text-blue-700'
-                                onClick={link === "Sell Your Book" ? handleSellYourBookClick : undefined} // Use click handler
+                                onClick={link === "Sell Your Book" ? handleSellYourBookClick : undefined}
                             >
                                 {link}
                             </Link>
                         </li>
                     ))}
-                    {
-                        user ? user.email : "" // Show user's email if logged in
-                    }
+                    {/* Show user's name or email in a rounded container */}
+                    {user && (
+                        <li className="flex items-center">
+                            <span className="bg-gray-200 text-black rounded-full px-3 py-1 font-medium">
+                                Welcome, {user.email || user.displayName}
+                            </span>
+                        </li>
+                    )}
                 </ul>
 
                 {/* Menu button for larger screens */}
@@ -102,6 +104,12 @@ const Navbar = () => {
                             {link}
                         </Link>
                     ))}
+                    {/* Display user's name/email in mobile nav */}
+                    {user && (
+                        <span className="block text-white text-center font-medium">
+                            Welcome, {user.email || user.displayName}
+                        </span>
+                    )}
                 </div>
             )}
         </header>

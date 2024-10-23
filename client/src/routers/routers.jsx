@@ -1,4 +1,5 @@
-import {createBrowserRouter, useParams} from "react-router-dom";
+// src/routers/routers.jsx
+import { createBrowserRouter } from "react-router-dom";
 import Home from "../home/Home";
 import App from "../App";
 import Shop from "../shop/Shop";
@@ -13,58 +14,59 @@ import Dashboard from "../dashboard/Dashboard";
 import Signup from "../components/Signup";
 import Login from "../components/Login";
 import Logout from "../components/Logout";
-import PrivateRouter from "../privateRoute/privateRoute";
+import PrivateRoute from "../privateRoute/PrivateRoute"; // Import your PrivateRoute
+
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <App />,
-    children: [
-      { path: "/", element: <Home /> },
-      { path: "/shop", element: <Shop /> },
-      { path: "/about", element: <About /> },
-      { path: "/blog", element: <Blog /> },
-      {
-        path: "/book/:id",
-        element: <SingleBook />,
-        loader: ({ params }) => fetch(`http://localhost:4000/book/${params.id}`),
-      },
-    ],
-  },
-  {
-    path: "/admin/dashboard",
-    element: <DashboardLayout />,
-    children: [
-      {
+    {
+        path: "/",
+        element: <App />,
+        children: [
+            { path: "/", element: <Home /> },
+            { path: "/shop", element: <Shop /> },
+            { path: "/about", element: <About /> },
+            { path: "/blog", element: <Blog /> },
+            {
+                path: "/book/:id",
+                element: <SingleBook />,
+                loader: ({ params }) => fetch(`http://localhost:4000/book/${params.id}`),
+            },
+        ],
+    },
+    {
         path: "/admin/dashboard",
-        element: <PrivateRouter><Dashboard /></PrivateRouter>, // Protected
-      },
-      {
-        path: "/admin/dashboard/upload",
-        element: <PrivateRouter><UploadBook /></PrivateRouter>, // Protected
-      },
-      {
-        path: "/admin/dashboard/manage",
-        element: <PrivateRouter><ManageBooks /></PrivateRouter>, // Protected
-      },
-      {
-        path: "/admin/dashboard/edit-books/:id",
-        element: <PrivateRouter><EditBooks /></PrivateRouter>, // Protected
-        loader: ({ params }) => fetch(`http://localhost:4000/book/${params.id}`),
-      },
-    ],
-  },
-  {
-    path: "/sign-up",
-    element: <Signup />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/logout",
-    element: <Logout />,
-  },
+        element: <DashboardLayout />,
+        children: [
+            {
+                path: "/admin/dashboard",
+                element: <PrivateRoute><Dashboard /></PrivateRoute>, // Protected
+            },
+            {
+                path: "/admin/dashboard/upload",
+                element: <PrivateRoute><UploadBook /></PrivateRoute>, // Protected
+            },
+            {
+                path: "/admin/dashboard/manage",
+                element: <PrivateRoute><ManageBooks /></PrivateRoute>, // Protected
+            },
+            {
+                path: "/admin/dashboard/edit-books/:id", // Correct route for editing a book
+                element: <PrivateRoute><EditBooks /></PrivateRoute>, // Protected
+                loader: ({ params }) => fetch(`http://localhost:4000/book/${params.id}`),
+            },
+        ],
+    },
+    {
+        path: "/sign-up",
+        element: <Signup />,
+    },
+    {
+        path: "/login",
+        element: <Login />,
+    },
+    {
+        path: "/logout",
+        element: <Logout />,
+    },
 ]);
 
 export default router;
