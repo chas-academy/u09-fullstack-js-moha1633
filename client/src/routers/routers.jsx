@@ -14,76 +14,57 @@ import Signup from "../components/Signup";
 import Login from "../components/Login";
 import Logout from "../components/Logout";
 import PrivateRouter from "../privateRoute/privateRoute";
-
 const router = createBrowserRouter([
-    {
-      path: "/",
-      element: <App/>,
-      children: [
-        { path: "/",
-            element: <Home/>,
-
-        },
-        {
-            path: "/shop",
-            element: <Shop/>,
-        },
-        {
-          path: "/about",
-          element: <About/>,
-
-        },
-        {
-          path: "/blog",
-          element: <Blog/>,
-
-        },
-        {
-          path: "/book/:id",
-          element: <SingleBook/>,
-          loader: ({ params }) => fetch(`http://localhost:4000/book/${params.id}`),
-        }
-        
-      
-        
-        
-      ]
-   },
+  {
+    path: "/",
+    element: <App />,
+    children: [
+      { path: "/", element: <Home /> },
+      { path: "/shop", element: <Shop /> },
+      { path: "/about", element: <About /> },
+      { path: "/blog", element: <Blog /> },
+      {
+        path: "/book/:id",
+        element: <SingleBook />,
+        loader: ({ params }) => fetch(`http://localhost:4000/book/${params.id}`),
+      },
+    ],
+  },
   {
     path: "/admin/dashboard",
-    element: <DashboardLayout/>,
-    children:[
+    element: <DashboardLayout />,
+    children: [
       {
         path: "/admin/dashboard",
-        element: <privateRouter><Dashboard/></privateRouter>
+        element: <PrivateRouter><Dashboard /></PrivateRouter>, // Protected
       },
       {
         path: "/admin/dashboard/upload",
-        element: <UploadBook/>
+        element: <PrivateRouter><UploadBook /></PrivateRouter>, // Protected
       },
       {
         path: "/admin/dashboard/manage",
-        element: <ManageBooks/>
-
+        element: <PrivateRouter><ManageBooks /></PrivateRouter>, // Protected
       },
       {
         path: "/admin/dashboard/edit-books/:id",
-        element: <EditBooks/>,
-        loader:({params}) => fetch(`http://localhost:4000/book/${params.id}`),
-      }
-
-    ]
-  },{
+        element: <PrivateRouter><EditBooks /></PrivateRouter>, // Protected
+        loader: ({ params }) => fetch(`http://localhost:4000/book/${params.id}`),
+      },
+    ],
+  },
+  {
     path: "/sign-up",
-    element:<Signup/>
-  }, {
-    path: "login",
-    element:<Login/>
-  }, {
-    path: "logout",
-    element:<Logout/>
-  }
+    element: <Signup />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/logout",
+    element: <Logout />,
+  },
+]);
 
-  ]);
-
-  export default router
+export default router;
