@@ -7,7 +7,9 @@ import {
     onAuthStateChanged,
     signInWithEmailAndPassword,
     signInWithPopup,
+    signOut,
 } from 'firebase/auth';
+import Logout from '../components/Logout';
 
 const AuthContext = createContext();
 const auth = getAuth(app);
@@ -69,6 +71,9 @@ const AuthProvider = ({ children }) => {
             setLoading(false);
         }
     };
+    const logOut = () => {
+        return signOut(auth)
+    }
 
     // Auth state listener
     useEffect(() => {
@@ -89,7 +94,8 @@ const AuthProvider = ({ children }) => {
         error,
         createUser,
         loginWithGoogle,
-        login, // This is important
+        login, 
+        logOut
     };
 
     return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;

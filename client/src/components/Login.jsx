@@ -4,7 +4,7 @@ import { AuthContext } from '../contects/AuthProvider';
 import googleLogo from "../assets/banner-books/googleLogo.png"; // Ensure path is correct
 
 const Login = () => {
-    const { login, loginWithGoogle } = useContext(AuthContext); // Corrected to match the AuthProvider
+    const { login, loginWithGoogle } = useContext(AuthContext); 
     const [error, setError] = useState(null); 
     const [loading, setLoading] = useState(false); 
     const location = useLocation();
@@ -17,37 +17,35 @@ const Login = () => {
         const email = form.email.value; 
         const password = form.password.value; 
 
-        setLoading(true); // Set loading state
-        setError(null); // Reset error state
+        setLoading(true); 
+        setError(null); 
 
         try {
-            await login(email, password); // Call the login function
-            alert("Login successfully!!");
+            await login(email, password); 
             navigate(from, { replace: true });
         } catch (error) {
-            setLoading(false); // Reset loading state on error
+            setLoading(false); 
             if (error.code === 'auth/wrong-password') {
-                setError("Incorrect password. Please try again."); // Specific error message for wrong password
+                setError("Incorrect password. Please try again.");
             } else if (error.code === 'auth/user-not-found') {
-                setError("No user found with this email. Please sign up."); // Specific error message for user not found
+                setError("No user found with this email. Please sign up.");
             } else {
-                setError("in Corrected password or username . Please try again later .you are gaabo u need to eat fruit every day"); // General error message
+                setError("Incorrect username or password. Please try again.");
             }
         }
     };
 
     const handleRegister = async () => {
-        setLoading(true); // Show loading state
+        setLoading(true); 
         try {
-            await loginWithGoogle(); // Use corrected function name
-            alert("Login successful!");
+            await loginWithGoogle(); 
             navigate(from, { replace: true });
         } catch (error) {
             setError(error.message); 
         } finally {
-            setLoading(false); // Reset loading state
+            setLoading(false); 
         }
-    }
+    };
 
     return (
         <div className="min-h-screen bg-gray-100 py-6 flex flex-col justify-center sm:py-12">
@@ -56,9 +54,8 @@ const Login = () => {
                 <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
                     <div className="max-w-md mx-auto">
                         <div>
-                            <h1 className="text-2xl font-semibold">Login</h1> 
+                            <h1 className="text-2xl font-semibold">Login</h1>
                         </div>
-                        {error && <p className="text-red-500">{error}</p>} {/* Display error message */}
                         <form onSubmit={handleLogin} className="divide-y divide-gray-200">
                             <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                                 <div className="relative">
@@ -97,7 +94,9 @@ const Login = () => {
                                         {loading ? 'Logging in...' : 'Log In'}
                                     </button>
                                 </div>
-
+                                {/* Error message displayed below the button */}
+                                {error && <p className="text-red-500 mt-2 text-center">{error}</p>}
+                                
                                 <div className='flex w-full items-center flex-col mt-5 gap-3'>
                                     <button 
                                         type="button" 
@@ -115,6 +114,6 @@ const Login = () => {
             </div>
         </div>
     );
-}
+};
 
 export default Login;
