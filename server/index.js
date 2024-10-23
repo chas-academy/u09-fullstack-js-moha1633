@@ -1,18 +1,17 @@
-require('dotenv').config();  // Load environment variables
-
+require('dotenv').config(); // Load environment variables
 const express = require('express');
 const cors = require('cors');
 const { MongoClient, ServerApiVersion, ObjectId } = require('mongodb');
 
 const app = express();
 const port = process.env.PORT || 4000;
-const uri = process.env.MONGODB_URI;  // Get MongoDB URI from .env
+const uri = process.env.MONGODB_URI; // Get MongoDB URI from .env
 
 app.use(cors());
 app.use(express.json());
 
 app.get('/', (req, res) => {
-    res.send('skogblad');
+    res.send('Welcome to the Book Inventory API');
 });
 
 // MongoDB configuration
@@ -24,17 +23,33 @@ const client = new MongoClient(uri, {
     }
 });
 
+// Validate ObjectId
+const isValidObjectId = (id) => /^[0-9a-fA-F]{24}$/.test(id);
+
 async function run() {
     try {
         await client.connect();
 
         const bookCollections = client.db("BookInventory").collection("books");
+        const blogCollections = client.db("BookInventory").collection("blogs");
 
-        // Insert a book into the DB: POST method
+        // --- Book Routes ---
+
+        // Get all books
+        app.get('/all-books', async (req, res) => {
+            try {
+                const books = await bookCollections.find().toArray(); // Fetch all books
+                res.json(books); // Send the books as a JSON response
+            } catch (error) {
+                console.error("Error fetching all books:", error);
+                res.status(500).send({ message: "Error fetching all books", error });
+            }
+        });
+
+        // Create a new book
         app.post("/upload-book", async (req, res) => {
             const { booktitle, imageUrl, category } = req.body;
 
-            // Ensure the book has all necessary data before inserting
             if (!booktitle || !imageUrl) {
                 return res.status(400).send({ message: "Book title and image URL are required" });
             }
@@ -42,117 +57,159 @@ async function run() {
             const bookData = {
                 booktitle,
                 imageUrl,
-                category: category || "Uncategorized", // Default category
+                category: category || "Uncategorized",
             };
 
-            const result = await bookCollections.insertOne(bookData);
-            res.send(result);
+            try {
+                const result = await bookCollections.insertOne(bookData);
+                res.status(201).send(result);
+            } catch (error) {
+                console.error("Error uploading book:", error);
+                res.status(500).send({ message: "Error uploading book", error });
+            }
         });
 
-        // Insert multiple books into the DB: POST method
-        app.post("/upload-books", async (req, res) => {
-            const books = req.body; // Expecting an array of book objects
+        // Get a book by ID
+        app.get('/book/:id', async (req, res) => {
+            const bookId = req.params.id;
 
-            // Validate the array
-            if (!Array.isArray(books) || books.length === 0) {
-                return res.status(400).send({ message: "Please provide an array of books" });
-            }
-
-            // Check each book for required fields
-            for (const book of books) {
-                const { booktitle, authorName, imageUrl, bookdescription, publishedYear, category, bookpdfUrl } = book;
-
-                if (!booktitle || !authorName || !imageUrl || !bookdescription || !publishedYear || !bookpdfUrl) {
-                    return res.status(400).send({ message: "All fields are required for each book" });
-                }
+            if (!isValidObjectId(bookId)) {
+                return res.status(400).send({ message: "Invalid book ID format" });
             }
 
             try {
-                const result = await bookCollections.insertMany(books); // Insert multiple books at once
-                res.send(result);
-            } catch (error) {
-                console.error("Error inserting books:", error);
-                res.status(500).send("Error inserting books");
-            }
-        });
+                const book = await bookCollections.findOne({ _id: new ObjectId(bookId) });
 
-        // Get all books from the database
-        app.get("/all-books", async (req, res) => {
-            let query = {};
-            if (req.query?.category) {
-                query = { category: req.query.category };
-            }
-            const result = await bookCollections.find(query).toArray();
-            res.send(result);
-        });
-
-        // Update a book: PATCH method
-        app.patch("/book/:id", async (req, res) => {
-            const id = req.params.id;
-            const updateBookData = req.body;
-            const filter = { _id: new ObjectId(id) };
-            const options = { upsert: true };
-
-            const updateDoc = {
-                $set: {
-                    ...updateBookData
+                if (!book) {
+                    return res.status(404).send({ message: "Book not found" });
                 }
-            };
 
-            const result = await bookCollections.updateOne(filter, updateDoc, options);
-            res.send(result);
-        });
-
-        // Update Image URL: PATCH method
-        app.patch("/update-image-url/:id", async (req, res) => {
-            const id = req.params.id; 
-            const { newImageUrl } = req.body; 
-
-            try {
-                const filter = { _id: new ObjectId(id) }; 
-                const updateDoc = {
-                    $set: {
-                        imageUrl: newImageUrl 
-                    }
-                };
-
-                const result = await bookCollections.updateOne(filter, updateDoc); 
-                if (result.matchedCount > 0) {
-                    res.send({ message: "Image URL updated successfully", result });
-                } else {
-                    res.status(404).send({ message: "Book not found" });
-                }
+                res.json(book);
             } catch (error) {
-                console.error("Error updating image URL:", error);
-                res.status(500).send("Error updating image URL");
+                console.error("Error fetching book:", error);
+                res.status(500).send({ message: "Error fetching book", error });
             }
         });
 
-        // Delete a book: DELETE method
+        // Delete a book by ID
         app.delete("/book/:id", async (req, res) => {
             const id = req.params.id;
-            const filter = { _id: new ObjectId(id) };
-            const result = await bookCollections.deleteOne(filter);
-            res.send(result);
+
+            if (!isValidObjectId(id)) {
+                return res.status(400).send({ message: "Invalid book ID format" });
+            }
+
+            try {
+                const result = await bookCollections.deleteOne({ _id: new ObjectId(id) });
+                if (result.deletedCount === 0) {
+                    return res.status(404).send({ message: "Book not found" });
+                }
+                res.send({ message: "Book deleted successfully" });
+            } catch (error) {
+                console.error("Error deleting book:", error);
+                res.status(500).send({ message: "Error deleting book", error });
+            }
         });
 
-        // to get single book data
+        // --- Blog Routes ---
 
-        app.get ("/book/:id" , async(req, res) => {
+        // Create a new blog
+        app.post("/blog", async (req, res) => {
+            const { title, content, author } = req.body;
+
+            if (!title || !content || !author) {
+                return res.status(400).send({ message: "All fields are required" });
+            }
+
+            const newBlog = {
+                title,
+                content,
+                author,
+                createdAt: new Date()
+            };
+
+            try {
+                const result = await blogCollections.insertOne(newBlog);
+                res.status(201).send(result);
+            } catch (error) {
+                console.error("Error creating blog:", error);
+                res.status(500).send({ message: "Error creating blog", error });
+            }
+        });
+
+        // Get all blogs
+        app.get("/blog", async (req, res) => {
+            try {
+                const blogs = await blogCollections.find().toArray();
+                res.send(blogs);
+            } catch (error) {
+                console.error("Error fetching blogs:", error);
+                res.status(500).send({ message: "Error fetching blogs", error });
+            }
+        });
+
+        // Update a blog by ID
+        app.put("/blog/:id", async (req, res) => {
             const id = req.params.id;
-            const filter = { _id: new ObjectId(id)};
-            const result =  await bookCollections.findOne(filter);
-            res.send(result);
+            const { title, content } = req.body;
 
-        })
+            if (!title || !content) {
+                return res.status(400).send({ message: "Title and content are required" });
+            }
+
+            if (!isValidObjectId(id)) {
+                return res.status(400).send({ message: "Invalid blog ID format" });
+            }
+
+            const filter = { _id: new ObjectId(id) };
+            const updateDoc = {
+                $set: {
+                    title,
+                    content,
+                    updatedAt: new Date()
+                }
+            };
+
+            try {
+                const result = await blogCollections.updateOne(filter, updateDoc);
+                if (result.matchedCount === 0) {
+                    return res.status(404).send({ message: "Blog not found" });
+                }
+                res.send({ message: "Blog updated successfully", result });
+            } catch (error) {
+                console.error("Error updating blog:", error);
+                res.status(500).send({ message: "Error updating blog", error });
+            }
+        });
+
+        // Delete a blog by ID
+        app.delete("/blog/:id", async (req, res) => {
+            const id = req.params.id;
+
+            if (!isValidObjectId(id)) {
+                return res.status(400).send({ message: "Invalid blog ID format" });
+            }
+
+            try {
+                const result = await blogCollections.deleteOne({ _id: new ObjectId(id) });
+                if (result.deletedCount === 0) {
+                    return res.status(404).send({ message: "Blog not found" });
+                }
+                res.send({ message: "Blog deleted successfully" });
+            } catch (error) {
+                console.error("Error deleting blog:", error);
+                res.status(500).send({ message: "Error deleting blog", error });
+            }
+        });
 
         // Confirm MongoDB connection
         await client.db("admin").command({ ping: 1 });
-        console.log("Pinged your deployment. You successfully connected to MongoDB!");
+        console.log("Connected to MongoDB successfully!");
     } catch (error) {
-        console.error(error);
+        console.error("Error connecting to MongoDB:", error);
     }
 }
+
 run().catch(console.dir);
 
 app.listen(port, () => {
