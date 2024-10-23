@@ -1,10 +1,10 @@
 import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contects/AuthProvider';
-import googleLogo from "../assets/banner-books/googleLogo.png";
+import googleLogo from "../assets/banner-books/googleLogo.png"; // Ensure path is correct
 
 const Login = () => {
-    const { loginUser, loginWithGoogle } = useContext(AuthContext); // Changed to `loginUser` to match your signup context
+    const { login, loginWithGoogle } = useContext(AuthContext); // Corrected to match the AuthProvider
     const [error, setError] = useState(null); 
     const [loading, setLoading] = useState(false); 
     const location = useLocation();
@@ -16,40 +16,36 @@ const Login = () => {
         const form = event.target;
         const email = form.email.value; 
         const password = form.password.value; 
-        login (email, password).then((userCredential) => {
-            // Signed in 
-            const user = userCredential.user;
-            alert ("Login successfully !!")
-            // ...
-          })
-          .catch((error) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-          });
 
-      
+        setLoading(true); // Set loading state
+        setError(null); // Reset error state
 
         try {
-            await loginUser(email, password); // Assume you have this method
-            setLoading(false); 
-            alert("Login successful!"); 
-            navigate(from, { replace: true }); 
+            await login(email, password); // Call the login function
+            alert("Login successfully!!");
+            navigate(from, { replace: true });
         } catch (error) {
-            setError(error.message); 
-            setLoading(false); 
+            setLoading(false); // Reset loading state on error
+            if (error.code === 'auth/wrong-password') {
+                setError("Incorrect password. Please try again."); // Specific error message for wrong password
+            } else if (error.code === 'auth/user-not-found') {
+                setError("No user found with this email. Please sign up."); // Specific error message for user not found
+            } else {
+                setError("in Corrected password or username . Please try again later .you are gaabo u need to eat fruit every day"); // General error message
+            }
         }
     };
 
     const handleRegister = async () => {
         setLoading(true); // Show loading state
         try {
-            const result = await loginWithGoogle();
-            const user = result.user;
+            await loginWithGoogle(); // Use corrected function name
             alert("Login successful!");
             navigate(from, { replace: true });
         } catch (error) {
             setError(error.message); 
-            setLoading(false); 
+        } finally {
+            setLoading(false); // Reset loading state
         }
     }
 
@@ -60,9 +56,9 @@ const Login = () => {
                 <div className="relative px-4 py-10 bg-white shadow-lg sm:rounded-3xl sm:p-20">
                     <div className="max-w-md mx-auto">
                         <div>
-                            <h1 className="text-2xl font-semibold">Login</h1> {/* Changed to "Login" */}
+                            <h1 className="text-2xl font-semibold">Login</h1> 
                         </div>
-                        {error && <p className="text-red-500">{error}</p>}
+                        {error && <p className="text-red-500">{error}</p>} {/* Display error message */}
                         <form onSubmit={handleLogin} className="divide-y divide-gray-200">
                             <div className="py-8 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
                                 <div className="relative">
@@ -90,7 +86,7 @@ const Login = () => {
                                     <Link to="/sign-up" className="text-green-600 underline">
                                         Sign up
                                     </Link>{' '}
-                                    her.
+                                    here.
                                 </p>
                                 <div className="relative">
                                     <button
@@ -98,7 +94,7 @@ const Login = () => {
                                         className="bg-green-500 text-white rounded-md px-6 py-2"
                                         disabled={loading}
                                     >
-                                        {loading ? 'Logging in...' : 'Log In'} {/* Changed to "Log In" */}
+                                        {loading ? 'Logging in...' : 'Log In'}
                                     </button>
                                 </div>
 
@@ -118,7 +114,7 @@ const Login = () => {
                 </div>
             </div>
         </div>
-    )
+    );
 }
 
 export default Login;

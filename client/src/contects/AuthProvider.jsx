@@ -16,20 +16,20 @@ const googleProvider = new GoogleAuthProvider();
 const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null); // Added error state
+    const [error, setError] = useState(null);
 
     // Create User
     const createUser = async (email, password) => {
         setLoading(true);
-        setError(null); // Reset error before making a request
+        setError(null);
         try {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             setUser(userCredential.user);
-            return userCredential.user; // Return user on success
+            return userCredential.user;
         } catch (error) {
             console.error("Error creating user:", error);
-            setError(error.message); // Set error message
-            throw error; // Throw error to be caught in the component
+            setError(error.message);
+            throw error;
         } finally {
             setLoading(false);
         }
@@ -38,16 +38,16 @@ const AuthProvider = ({ children }) => {
     // Login with Google
     const loginWithGoogle = async () => {
         setLoading(true);
-        setError(null); // Reset error before making a request
+        setError(null);
         try {
             const result = await signInWithPopup(auth, googleProvider);
             const user = result.user;
             setUser(user);
-            return user; // Return user on success
+            return user;
         } catch (error) {
             console.error("Error signing in with Google:", error);
-            setError(error.message); // Set error message
-            throw error; // Throw error to be caught in the component
+            setError(error.message);
+            throw error;
         } finally {
             setLoading(false);
         }
@@ -56,15 +56,15 @@ const AuthProvider = ({ children }) => {
     // Login
     const login = async (email, password) => {
         setLoading(true);
-        setError(null); // Reset error before making a request
+        setError(null);
         try {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
             setUser(userCredential.user);
-            return userCredential.user; // Return user on success
+            return userCredential.user;
         } catch (error) {
             console.error("Error logging in:", error);
-            setError(error.message); // Set error message
-            throw error; // Throw error to be caught in the component
+            setError(error.message);
+            throw error;
         } finally {
             setLoading(false);
         }
@@ -86,10 +86,10 @@ const AuthProvider = ({ children }) => {
     const authInfo = {
         user,
         loading,
-        error, // Expose error state
+        error,
         createUser,
         loginWithGoogle,
-        login,
+        login, // This is important
     };
 
     return <AuthContext.Provider value={authInfo}>{children}</AuthContext.Provider>;
