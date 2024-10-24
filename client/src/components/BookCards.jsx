@@ -49,7 +49,7 @@ const BookCards = ({ headline, books }) => {
                
               </div>
               <div>
-              <p>¢10.00</p>
+              <p>$10.00</p>
               </div>
             </Link>
           </SwiperSlide>

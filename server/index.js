@@ -111,6 +111,33 @@ async function run() {
             }
         });
 
+        // Update a book by ID
+app.put("/book/:id", async (req, res) => {
+    const id = req.params.id;
+    const updatedData = req.body; // Get the updated book data from the request body
+
+    if (!isValidObjectId(id)) {
+        return res.status(400).send({ message: "Invalid book ID format" });
+    }
+
+    try {
+        const result = await bookCollections.updateOne(
+            { _id: new ObjectId(id) },
+            { $set: updatedData }
+        );
+
+        if (result.matchedCount === 0) {
+            return res.status(404).send({ message: "Book not found" });
+        }
+
+        res.send({ message: "Book updated successfully", result });
+    } catch (error) {
+        console.error("Error updating book:", error);
+        res.status(500).send({ message: "Error updating book", error });
+    }
+});
+
+
         // --- Blog Routes ---
 
         // Create a new blog
