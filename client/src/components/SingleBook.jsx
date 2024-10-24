@@ -48,7 +48,7 @@ export const SingleBook = () => {
         <strong>Published Year:</strong> {book.publishedYear}
       </p>
       <a 
-        className="inline-block bg-blue-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200" 
+        className="inline-block bg-green-500 text-white font-semibold py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-200" 
         href={book.bookpdfUrl} 
         download
       >

@@ -39,7 +39,7 @@ const BookCards = ({ headline, books }) => {
               <div className="relative">
                 <img
                   src={book.imageUrl}/>
-                  <div className=' absolute top-3 righ-3 bg-blue-600 hover:bg-black p-2 rounded'>
+                  <div className=' absolute top-3 righ-3 bg-red-600 hover:bg-black p-2 rounded'>
                     <FaCartShopping className='w-4-h-4 text-white'/>
                   </div>
               </div>

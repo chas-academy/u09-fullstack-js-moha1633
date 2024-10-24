@@ -39,7 +39,7 @@ const Shop = () => {
             </p>
           
             <button
-              className='bg-blue-700 font-semibold text-white py-2 rounded'
+              className='bg-red-700 font-semibold text-white py-2 rounded'
               onClick={() => handleBuyNow(book)} // Call handleBuyNow with the selected book
             >
               Buy Now

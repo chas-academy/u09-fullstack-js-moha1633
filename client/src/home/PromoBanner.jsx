@@ -13,7 +13,7 @@ const PromoBanner = () => {
             </h2>
             {/* Use Link instead of link */}
             <Link to="/shop" className=' block'>
-                <button className='bg-blue-700 text-white font-semibold px-5 py-2 rounded hover:bg-black transition-all duration-300'>
+                <button className='bg--700 text-white font-semibold px-5 py-2 rounded hover:bg-black transition-all duration-300'>
                     Get Promo 
                 </button>
             </Link>

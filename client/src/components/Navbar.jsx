@@ -50,7 +50,7 @@ const Navbar = () => {
     };
 
     return (
-        <header className={`${isSticky ? 'sticky top-0 bg-white shadow-md' : ''}`}>
+        <header className={`${isSticky ? 'sticky top-0 bg-green shadow-md' : ''}`}>
             <nav className='container mx-auto flex items-center justify-between py-4 px-4'>
                 {/* Hamburger menu button for mobile */}
                 <div className='md:hidden'>
@@ -73,7 +73,7 @@ const Navbar = () => {
                         <li key={`${path}-${index}`}>
                             <Link
                                 to={link === "Sell Your Book" ? "#" : path}
-                                className='block text-base text-black uppercase cursor-pointer hover:text-blue-700'
+                                className='block text-base text-black uppercase cursor-pointer hover:text-red-700'
                                 onClick={link === "Sell Your Book" ? handleSellYourBookClick : undefined}
                             >
                                 {link}
@@ -92,13 +92,13 @@ const Navbar = () => {
 
                 {/* Menu button for larger screens */}
                 <div className='space-x-12 hidden lg:flex items-center'>
-                    <button><FaBarsStaggered className='w-5 hover:text-blue-700' /></button>
+                    <button><FaBarsStaggered className='w-5 hover:text-red-700' /></button>
                 </div>
             </nav>
 
             {/* Nav items for smaller screens */}
             {isMenuOpen && (
-                <div className='md:hidden space-y-4 px-4 mt-4 py-4 bg-blue-700'>
+                <div className='md:hidden space-y-4 px-4 mt-4 py-4 bg-gray-700'>
                     {navItems.map(({ link, path }) => (
                         <Link key={path} to={link === "Sell Your Book" ? "#" : path} className='block text-base text-white uppercase cursor-pointer hover:text-blue-300' onClick={link === "Sell Your Book" ? handleSellYourBookClick : undefined}>
                             {link}
