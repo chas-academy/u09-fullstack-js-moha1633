@@ -3,7 +3,8 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "../home/Home";
 import App from "../App";
 import Shop from "../shop/Shop";
-import { About } from "../components/About";
+import About from "../components/About"; // Use default import
+
 import { Blog } from "../components/Blog";
 import { SingleBook } from "../components/SingleBook";
 import DashboardLayout from "../dashboard/DashboardLayout";
