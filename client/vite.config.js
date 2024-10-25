@@ -27,7 +27,7 @@ export default defineConfig({
             "purpose": "any"
           },
           {
-            "src": "/BestBook.png",
+            "src": "/assets/banner-books/BestBook.png",
             "sizes": "1200x630",
             "type": "image/png",
             "purpose": "any"
@@ -48,7 +48,7 @@ export default defineConfig({
             "src": "/pwa-maskable-192x192.png",
             "sizes": "192x192",
             "type": "image/png",
-            "purpose": "maskable"
+            "purpose": "any"
           },
           {
             "src": "/dont-make-me-think.jpeg",
