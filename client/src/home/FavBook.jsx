@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 // Import images for the books
-import BestBookImg1 from "../assets/banner-books/BestBook.png";
+import BestBookImg1 from "../assets/BestBook.png";
 
 
 function FavBook() {
