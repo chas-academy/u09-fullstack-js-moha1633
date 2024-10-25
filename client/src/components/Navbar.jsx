@@ -58,7 +58,7 @@ const Navbar = ({ toggleDarkMode, isDarkMode }) => {
                 <div className='flex items-center'>
                     <Link to="/" className='text-2xl font-bold text-green-700 flex items-center gap-2'>
                         <FaHome className='inline-block' />
-                        Books
+                        Bokhuset
                     </Link>
                 </div>
 
