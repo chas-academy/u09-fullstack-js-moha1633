@@ -8,6 +8,6 @@ export default {
   theme: {
     extend: {},
   },
+  darkMode: 'class', // Enable dark mode
   plugins: [require('flowbite/plugin')],
 }
-

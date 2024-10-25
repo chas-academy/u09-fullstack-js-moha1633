@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaBarsStaggered, FaXmark } from "react-icons/fa6";
+import { FaBarsStaggered, FaXmark, FaMoon, FaSun } from "react-icons/fa6";
 import { FaHome } from "react-icons/fa";
 import { AuthContext } from '../contects/AuthProvider';
 
-const Navbar = () => {
+const Navbar = ({ toggleDarkMode, isDarkMode }) => {
     const [isMenuOpen, setMenuOpen] = useState(false);
     const [isSticky, setSticky] = useState(false);
     const { user } = useContext(AuthContext);
@@ -45,11 +45,11 @@ const Navbar = () => {
     };
 
     return (
-        <header className={`${isSticky ? 'sticky top-0 bg-green shadow-md' : 'bg-white text-black'}`}>
+        <header className={`${isSticky ? 'sticky top-0 bg-green shadow-md' : 'bg-white text-black dark:bg-gray-800 dark:text-white'}`}>
             <nav className='container mx-auto flex items-center justify-between py-4 px-4'>
                 {/* Hamburger menu button for mobile */}
                 <div className='md:hidden'>
-                    <button onClick={toggleMenu} className='text-black focus:outline-none'>
+                    <button onClick={toggleMenu} className='text-black dark:text-white focus:outline-none'>
                         {isMenuOpen ? <FaXmark className='h-5 w-5' /> : <FaBarsStaggered className='h-5 w-5' />}
                     </button>
                 </div>
@@ -62,13 +62,18 @@ const Navbar = () => {
                     </Link>
                 </div>
 
+                {/* Dark Mode Toggle with Moon/Sun Icon */}
+                <button onClick={toggleDarkMode} className="ml-4 text-xl bg-gray-200 dark:bg-gray-700 p-2 rounded">
+                    {isDarkMode ? <FaSun className="text-yellow-500" /> : <FaMoon className="text-gray-800" />}
+                </button>
+
                 {/* Nav items for larger screens */}
                 <ul className='md:flex space-x-12 hidden'>
                     {navItems.map(({ link, path }, index) => (
                         <li key={`${path}-${index}`}>
                             <Link
                                 to={link === "Sell Your Book" ? "#" : path}
-                                className='block text-base text-black uppercase cursor-pointer hover:text-red-700'
+                                className='block text-base uppercase cursor-pointer hover:text-red-700 dark:hover:text-red-400'
                                 onClick={link === "Sell Your Book" ? handleSellYourBookClick : undefined}
                             >
                                 {link}
@@ -79,8 +84,8 @@ const Navbar = () => {
                     {user && (
                         <li className="flex items-center">
                             <Link to="/admin/dashboard/profile" className="flex items-center">
-                                <div className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center text-black font-bold">
-                                    {user.displayName ? user.displayName[0] : user.email[0]} {/* Display first initial */}
+                                <div className="bg-gray-200 dark:bg-gray-600 rounded-full w-8 h-8 flex items-center justify-center text-black dark:text-white font-bold">
+                                    {user.displayName ? user.displayName[0] : user.email[0]}
                                 </div>
                             </Link>
                         </li>
@@ -105,8 +110,8 @@ const Navbar = () => {
                     {user && (
                         <div className="flex items-center justify-center mt-4">
                             <Link to="/admin/dashboard/profile" className="flex items-center">
-                                <div className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center text-black font-bold">
-                                    {user.displayName ? user.displayName[0] : user.email[0]} {/* Display first initial */}
+                                <div className="bg-gray-200 dark:bg-gray-600 rounded-full w-8 h-8 flex items-center justify-center text-black dark:text-white font-bold">
+                                    {user.displayName ? user.displayName[0] : user.email[0]}
                                 </div>
                             </Link>
                         </div>
