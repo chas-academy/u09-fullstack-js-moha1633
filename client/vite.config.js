@@ -27,14 +27,68 @@ export default defineConfig({
             "purpose": "any"
           },
           {
+            "src": "/BestBook.png",
+            "sizes": "1200×630",
+            "type": "image/png",
+            "purpose": "any"
+          },
+          {
+            "src": "/Bookstagram.jpg",
+            "sizes": "500x500",
+            "type": "image/png",
+            "purpose": "any"
+          },
+          {
+            "src": "/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png",
+            "purpose": "any"
+          },
+          {
+            "src": "/apple-touch-icon.png",
+            "sizes": "180x180",
+            "type": "image/png",
+            "purpose": "any"
+          },
+          {
             "src": "/pwa-maskable-192x192.png",
             "sizes": "192x192",
             "type": "image/png",
             "purpose": "maskable"
           },
           {
-            "src": "/pwa-maskable-512x512.png",
+            "src": "/dont-make-me-think.jpeg",
+            "sizes": "200x257",
+            "type": "image/png",
+            "purpose": "maskable"
+          },
+          {
+            "src": "/favicon.svg",
             "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "maskable"
+          },
+          {
+            "src": "/favoritebook.jpg",
+            "sizes": "200x260",
+            "type": "image/png",
+            "purpose": "maskable"
+          },
+          {
+            "src": "/makt-de-48-lagarna.jpg",
+            "sizes": "200x260",
+            "type": "image/png",
+            "purpose": "maskable"
+          },
+          {
+            "src": "/profile.jpg",
+            "sizes": "225x225",
+            "type": "image/png",
+            "purpose": "maskable"
+          },
+          {
+            "src": "/grytor-och-gratanger.jpg",
+            "sizes": "200x260",
             "type": "image/png",
             "purpose": "maskable"
           }
