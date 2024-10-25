@@ -32,6 +32,7 @@ export const SideBar = () => {
           <Sidebar.Item href="/login" icon={HiArrowSmRight}>
             Sign In
           </Sidebar.Item>
+        
           <Sidebar.Item href="/logout" icon={HiTable}>
             Log Out
           </Sidebar.Item>

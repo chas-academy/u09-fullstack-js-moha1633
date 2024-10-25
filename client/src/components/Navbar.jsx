@@ -12,26 +12,21 @@ const Navbar = () => {
 
     // Toggle menu
     const toggleMenu = () => {
-        setMenuOpen(!isMenuOpen);
+        setMenuOpen(prev => !prev);
     };
 
     useEffect(() => {
         const handleScroll = () => {
-            if (window.scrollY > 100) {
-                setSticky(true);
-            } else {
-                setSticky(false);
-            }
+            setSticky(window.scrollY > 100);
         };
 
         window.addEventListener("scroll", handleScroll);
-
         return () => {
             window.removeEventListener("scroll", handleScroll);
         };
     }, []);
 
-    // navItems
+    // Nav items
     const navItems = [
         { link: "Home", path: "/" },
         { link: "About", path: "/about" },
@@ -50,7 +45,7 @@ const Navbar = () => {
     };
 
     return (
-        <header className={`${isSticky ? 'sticky top-0 bg-green shadow-md' : ''}`}>
+        <header className={`${isSticky ? 'sticky top-0 bg-green shadow-md' : 'bg-white text-black'}`}>
             <nav className='container mx-auto flex items-center justify-between py-4 px-4'>
                 {/* Hamburger menu button for mobile */}
                 <div className='md:hidden'>
@@ -80,18 +75,20 @@ const Navbar = () => {
                             </Link>
                         </li>
                     ))}
-                    {/* Show user's name or email in a rounded container */}
+                    {/* User's initials in a circle */}
                     {user && (
                         <li className="flex items-center">
-                            <span className="bg-gray-200 text-black rounded-full px-3 py-1 font-medium">
-                                Welcome, {user.email || user.displayName}
-                            </span>
+                            <Link to="/admin/dashboard/profile" className="flex items-center">
+                                <div className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center text-black font-bold">
+                                    {user.displayName ? user.displayName[0] : user.email[0]} {/* Display first initial */}
+                                </div>
+                            </Link>
                         </li>
                     )}
                 </ul>
 
-                {/* Menu button for larger screens */}
-                <div className='space-x-12 hidden lg:flex items-center'>
+                {/* Only show hamburger menu for smaller screens */}
+                <div className='hidden md:flex space-x-12 items-center'>
                     <button><FaBarsStaggered className='w-5 hover:text-red-700' /></button>
                 </div>
             </nav>
@@ -104,11 +101,15 @@ const Navbar = () => {
                             {link}
                         </Link>
                     ))}
-                    {/* Display user's name/email in mobile nav */}
+                    {/* User's initials in a circle for mobile nav */}
                     {user && (
-                        <span className="block text-white text-center font-medium">
-                            Welcome, {user.email || user.displayName}
-                        </span>
+                        <div className="flex items-center justify-center mt-4">
+                            <Link to="/admin/dashboard/profile" className="flex items-center">
+                                <div className="bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center text-black font-bold">
+                                    {user.displayName ? user.displayName[0] : user.email[0]} {/* Display first initial */}
+                                </div>
+                            </Link>
+                        </div>
                     )}
                 </div>
             )}

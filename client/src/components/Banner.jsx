@@ -20,10 +20,7 @@ const Banner = () => {
           en enkel och trygg plattform för dig att köpa och sälja böcker. 
           Börja din bokresa idag!
         </p>
-        <div className='flex space-x-2'>
-            <input type="search" name='search' id='search' placeholder='search abook' className='py-2 px-2 rounded-s-sm outline-none' />
-            <button className='bg-red-700 px-6 py-2 text-white font-medium hover:bg-black transition-all ease-in duration-200'>Search</button>
-        </div>
+       
         </div>
         {/* right side  */}
         <div>

@@ -16,6 +16,7 @@ import Signup from "../components/Signup";
 import Login from "../components/Login";
 import Logout from "../components/Logout";
 import PrivateRoute from "../privateRoute/PrivateRoute"; // Import your PrivateRoute
+import Profile from "../components/Profile";
 
 const router = createBrowserRouter([
     {
@@ -50,6 +51,10 @@ const router = createBrowserRouter([
                 element: <PrivateRoute><ManageBooks /></PrivateRoute>, // Protected
             },
             {
+                path: "/admin/dashboard/profile", // Ensure this path matches the Navbar link
+                element: <PrivateRoute><Profile /></PrivateRoute>, // Protect the profile route
+            },
+            {
                 path: "/admin/dashboard/edit-books/:id", // Correct route for editing a book
                 element: <PrivateRoute><EditBooks /></PrivateRoute>, // Protected
                 loader: ({ params }) => fetch(`http://localhost:4000/book/${params.id}`),
@@ -68,6 +73,7 @@ const router = createBrowserRouter([
         path: "/logout",
         element: <Logout />,
     },
+  
 ]);
 
 export default router;
