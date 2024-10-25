@@ -83,7 +83,7 @@ export default defineConfig({
           {
             "src": "/grytor-och-gratanger.jpg",
             "sizes": "200x267",
-            "type": "image/jpg",
+            "type": "image/jng",
             "purpose": "maskable"
           }
         ],
