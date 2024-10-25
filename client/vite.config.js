@@ -89,7 +89,7 @@ export default defineConfig({
         ],
          workbox: {
           globPatterns: ['**/*.{js,css,html,woff2,webp,png,jpeg,svg,jpg}'],
-          includeAssets: ['/assets/banner-books/',  '/.png', '/.svg',  '/.ico', '/*.jpeg ' ,'/*.jpeg'],
+          includeAssets: ['/assets/banner-books/*',  '/*.png', '/*.svg',  '/*.ico','/*.jpeg ','/*.jpeg'],
         },
       }
     } )
