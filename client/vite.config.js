@@ -81,7 +81,7 @@ export default defineConfig({
             "purpose": "maskable"
           },
           {
-            "src": "/grytor-och-gratanger.jpg",
+            "src": "banner-books/grytor-och-gratanger.jpg",
             "sizes": "200x267",
             "type": "image/jpg",
             "purpose": "maskable"
