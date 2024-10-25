@@ -76,7 +76,7 @@ export default defineConfig({
           },
           {
             "src": "/makt-de-48-lagarna.jpg",
-            "sizes": "200x260",
+            "sizes": "200x306",
             "type": "image/png",
             "purpose": "maskable"
           },
