@@ -81,7 +81,7 @@ export default defineConfig({
             "purpose": "maskable"
           },
           {
-            "src": "banner-books/grytor-och-gratanger.jpg",
+            "src": "/grytor-och-gratanger.jpg",
             "sizes": "200x267",
             "type": "image/jpg",
             "purpose": "maskable"
@@ -89,7 +89,7 @@ export default defineConfig({
         ],
          workbox: {
           globPatterns: ['**/*.{js,css,html,woff2,webp,png,jpeg,svg,jpg}'],
-          includeAssets: ['/assets/banner-books/*',  '/*.png', '/*.svg',  '/*.ico','/*.jpeg ','/*.jpeg'],
+          includeAssets: [ '/*.png', '/*.svg',  '/*.ico','/*.jpeg ','/*.jpeg'],
         },
       }
     } )
