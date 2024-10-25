@@ -27,7 +27,7 @@ export default defineConfig({
             "purpose": "any"
           },
           {
-            "src": "/assets/banner-books/BestBook.png",
+            "src": "BestBook.png",
             "sizes": "1200x630",
             "type": "image/png",
             "purpose": "any"
@@ -83,13 +83,13 @@ export default defineConfig({
           {
             "src": "/grytor-och-gratanger.jpg",
             "sizes": "200x267",
-            "type": "image/jng",
+            "type": "image/jpg",
             "purpose": "maskable"
           }
         ],
          workbox: {
           globPatterns: ['**/*.{js,css,html,woff2,webp,png,jpeg,svg,jpg}'],
-          includeAssets: ['/assets/banner-books/*.webp', '/*.png', '/*.svg','/*.ico', '/*.jpeg'],
+          includeAssets: ['/assets/banner-books/',  '/.png', '/.svg',  '/.ico', '/*.jpeg ' ,'/*.jpeg'],
         },
       }
     } )
