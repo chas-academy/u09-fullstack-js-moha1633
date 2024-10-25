@@ -27,7 +27,7 @@ export default defineConfig({
             "purpose": "any"
           },
           {
-            "src": "/BestBook.png",
+            "src": "/assets/banner-books/BestBook.png",
             "sizes": "1200x630",
             "type": "image/png",
             "purpose": "any"
