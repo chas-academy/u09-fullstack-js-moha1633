@@ -5,12 +5,14 @@ import { VitePWA } from 'vite-plugin-pwa'
 // https://vitejs.dev/config/
 export default defineConfig({
   plugins: [react(),
-    { registerType: 'autoUpdate',
+    VitePWA(
+      {
+     registerType: 'autoUpdate',
       manifest: {
-        name: 'My Awesome App',
-        short_name: 'MyApp',
-        description: 'My Awesome App description',
-        theme_color: '#ffffff',
+        name: 'Bokhuset',
+        short_name: 'BokH',
+        description: 'Buy and sell Your Books for the Best prices',
+        theme_color: '#FFFFFF',
         icons: [
           {
             "src": "/pwa-192x192.png",
@@ -36,8 +38,12 @@ export default defineConfig({
             "type": "image/png",
             "purpose": "maskable"
           }
-        ]
+        ],
+         workbox: {
+          globPatterns: ['**/*.{js,css,html,woff2,webp,png}'],
+          includeAssets: ['/*.webp', '/*.png', '/*.svg','/*.ico', '/*.jpeg'],
+        },
       }
-    }
+    } )
   ],
 })
