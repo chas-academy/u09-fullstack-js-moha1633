@@ -35,7 +35,7 @@ export default defineConfig({
           {
             "src": "/Bookstagram.jpg",
             "sizes": "500x500",
-            "type": "image/png",
+            "type": "image/jpg",
             "purpose": "any"
           },
           {
@@ -59,37 +59,37 @@ export default defineConfig({
           {
             "src": "/dont-make-me-think.jpeg",
             "sizes": "200x257",
-            "type": "image/png",
+            "type": "image/jpeg",
             "purpose": "maskable"
           },
           {
             "src": "/favicon.svg",
             "sizes": "114x27",
-            "type": "image/png",
+            "type": "image/svg",
             "purpose": "maskable"
           },
           {
             "src": "/favoritebook.jpg",
             "sizes": "200x266",
-            "type": "image/png",
+            "type": "image/jpg",
             "purpose": "maskable"
           },
           {
             "src": "/makt-de-48-lagarna.jpg",
             "sizes": "200x306",
-            "type": "image/png",
+            "type": "image/jpg",
             "purpose": "maskable"
           },
           {
             "src": "/profile.jpg",
             "sizes": "225x225",
-            "type": "image/png",
+            "type": "image/jpg",
             "purpose": "maskable"
           },
           {
             "src": "/grytor-och-gratanger.jpg",
             "sizes": "200x267",
-            "type": "image/png",
+            "type": "image/jpg",
             "purpose": "maskable"
           }
         ],
