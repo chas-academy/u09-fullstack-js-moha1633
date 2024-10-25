@@ -28,7 +28,7 @@ export default defineConfig({
           },
           {
             "src": "/BestBook.png",
-            "sizes": "1200×630",
+            "sizes": "1200x630",
             "type": "image/png",
             "purpose": "any"
           },
@@ -64,13 +64,13 @@ export default defineConfig({
           },
           {
             "src": "/favicon.svg",
-            "sizes": "512x512",
+            "sizes": "114x27",
             "type": "image/png",
             "purpose": "maskable"
           },
           {
             "src": "/favoritebook.jpg",
-            "sizes": "200x260",
+            "sizes": "200x266",
             "type": "image/png",
             "purpose": "maskable"
           },
@@ -88,7 +88,7 @@ export default defineConfig({
           },
           {
             "src": "/grytor-och-gratanger.jpg",
-            "sizes": "200x260",
+            "sizes": "200x267",
             "type": "image/png",
             "purpose": "maskable"
           }
