@@ -1,7 +1,8 @@
 import React, { useContext, useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../contects/AuthProvider';
-import googleLogo from '../assets/banner-books/googleLogo.png';
+import googleLogo from '/src/assets/banner-books/googleLogo.png';
+
 
 
 const Signup = () => {
