@@ -27,7 +27,7 @@ export default defineConfig({
             "purpose": "any"
           },
           {
-            "src": "/assets/banner-books/BestBook.png",
+            "src": "/BestBook.png",
             "sizes": "1200x630",
             "type": "image/png",
             "purpose": "any"
@@ -88,8 +88,8 @@ export default defineConfig({
           }
         ],
          workbox: {
-          globPatterns: ['**/*.{js,css,html,woff2,webp,png}'],
-          includeAssets: ['/*.webp', '/*.png', '/*.svg','/*.ico', '/*.jpeg'],
+          globPatterns: ['**/*.{js,css,html,woff2,webp,png,jpeg,svg,jpg}'],
+          includeAssets: ['/assets/banner-books/*.webp', '/*.png', '/*.svg','/*.ico', '/*.jpeg'],
         },
       }
     } )
