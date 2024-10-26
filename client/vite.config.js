@@ -91,6 +91,12 @@ export default defineConfig({
             "sizes": "200x266",
             "type": "image/jpg",
             "purpose": "maskable"
+          },
+          {
+            "src": "/javascript---the-definitive-guide.jpg",
+            "sizes": "200x262",
+            "type": "image/jpg",
+            "purpose": "maskable"
           }
         ],
          workbox: {

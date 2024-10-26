@@ -15,7 +15,7 @@
   }
   
   .banner .swiper-slide:nth-child(1n) {
-    background-image:url('/clean-code.jpg');
+    background-image:url('/cleancode.jpg');
   }
   
   .banner .swiper-slide:nth-child(2n) {
