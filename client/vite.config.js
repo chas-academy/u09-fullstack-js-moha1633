@@ -85,6 +85,12 @@ export default defineConfig({
             "sizes": "200x267",
             "type": "image/jpg",
             "purpose": "maskable"
+          },
+          {
+            "src": "/cleancode.jpg",
+            "sizes": "200x266",
+            "type": "image/jpg",
+            "purpose": "maskable"
           }
         ],
          workbox: {
