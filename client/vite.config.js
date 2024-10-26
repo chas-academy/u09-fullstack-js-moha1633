@@ -97,6 +97,12 @@ export default defineConfig({
             "sizes": "200x262",
             "type": "image/jpg",
             "purpose": "maskable"
+          },
+          {
+            "src": "/googlelogo.png",
+            "sizes": "4096x4096",
+            "type": "image/png",
+            "purpose": "maskable"
           }
         ],
          workbox: {
