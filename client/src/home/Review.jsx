@@ -3,7 +3,7 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { FaStar } from "react-icons/fa6";
 import { Avatar } from "flowbite-react";
-import propic from "../assets/banner-books/profile.jpg";  // Import profile picture
+//import propic from "../assets/banner-books/profile.jpg";  // Import profile picture
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/pagination';
@@ -18,7 +18,7 @@ const reviews = [
     title: 'CEO, Skogblad AB',
     text: 'Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quis sit sed obcaecati placeat dicta similique fugit.',
     rating: 4,
-    img: propic
+    img: "/profile.jpg"
   },
   {
     id: 2,
@@ -26,7 +26,7 @@ const reviews = [
     title: 'Product Manager, Example Inc.',
     text: 'Fantastic product! I have seen great results and it has really improved my workflow. Highly recommended!',
     rating: 5,
-    img: propic
+    img: "/profile.jpg"
   },
   {
     id: 3,
@@ -34,7 +34,7 @@ const reviews = [
     title: 'Designer, Creative Co.',
     text: 'The quality is exceptional and the support team is incredibly helpful. Would definitely buy again !',
     rating: 4,
-    img: propic
+    img: "/profile.jpg"
   },
   {
     id: 4,
@@ -42,7 +42,7 @@ const reviews = [
     title: 'Marketing Lead, Business Corp.',
     text: 'Great experience from start to finish. The features are intuitive and easy to use.',
     rating: 5,
-    img: propic
+    img: "/profile.jpg"
   },
 ];
 
