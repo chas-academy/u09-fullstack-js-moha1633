@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom'; 
-import Bookstagram from "../assets/banner-books/Bookstagram.jpg"
+//import Bookstagram from "../assets/banner-books/Bookstagram.jpg"
 
 const PromoBanner = () => {
   return (
@@ -19,7 +19,7 @@ const PromoBanner = () => {
             </Link>
         </div>
         <div>
-            <img src={Bookstagram} alt="" className='w-96' />
+            <img src="/Bookstagram.jpg" alt="" className='w-96' />
         </div>
        </div>
     </div>

@@ -104,7 +104,7 @@ const Login = () => {
                                         onClick={handleRegister} 
                                         className='flex items-center bg-white border border-gray-300 rounded-md px-4 py-2'
                                     >
-                                         {/**<img src={googleLogo} alt="Google Logo" className='w-8 h-8 inline-block mr-2' /> */} 
+                                         <img src="/googleLogo.png" alt="Google Logo" className='w-8 h-8 inline-block mr-2' />
                                         <span>Login with Google</span>
                                     </button>
                                 </div>
