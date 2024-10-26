@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom'; // Import Link from react-router-dom
 
 // Import images for the books
-import BestBookImg1 from "../assets/banner-books/BestBook.png";
+//import BestBookImg1 from "../assets/banner-books/BestBook.png";
 
 
 function FavBook() {
@@ -11,7 +11,7 @@ function FavBook() {
             <div className='md:w-1/2'>
                 {/* Display both book images using unique variable names */}
                 <div className='grid grid-cols-2 gap-4'>
-                    <img src={BestBookImg1} alt="BestBook Book 1" className=' rounded md:w-10/12-cover'/>
+                    <img src="/BestBook.png" alt="BestBook Book 1" className=' rounded md:w-10/12-cover'/>
             
                 </div>
             </div>
