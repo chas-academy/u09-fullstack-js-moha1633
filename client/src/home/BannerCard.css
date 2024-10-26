@@ -15,7 +15,7 @@
   }
   
   .banner .swiper-slide:nth-child(1n) {
-    background-image:url('src/assets/banner-books/clean-code.jpg');
+    background-image:url('/clean-code.jpg');
   }
   
   .banner .swiper-slide:nth-child(2n) {
@@ -23,15 +23,15 @@
   }
   
   .banner .swiper-slide:nth-child(3n) {
-    background-image:url('src/assets/banner-books/javascript---the-definitive-guide.jpg');
+    background-image:url('/javascript---the-definitive-guide.jpg');
   }
   
   .banner .swiper-slide:nth-child(4n) {
-    background-image:url('src/assets/banner-books/makt-de-48-lagarna.jpg');
+    background-image:url('/makt-de-48-lagarna.jpg');
   }
   
   .banner .swiper-slide:nth-child(5n) {
-    background-image:url('src/assets/banner-books/dont-make-me-think.jpg');
+    background-image:url('/dont-make-me-think.jpg');
   }
   
   .banner .swiper-slide:nth-child(6n) {
